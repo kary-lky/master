@@ -1,0 +1,100 @@
+.container_12,
+.container_16 {
+    margin: 0 auto;
+    width: 960px;
+    box-sizing: border-box;
+    /* css3的box-sizing */
+}
+
+
+/* 使用Flexbox实现的网格系统 */
+
+.container_12,
+.container_16 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    /* 新添加的，确保所有网格子项在交叉轴方向居中 */
+    justify-content: space-between;
+    /* 根据需要调整，此处使网格子项在主轴方向有均匀的空间分布 */
+}
+
+
+/* 通用网格样式 */
+
+[class*="grid_"] {
+    box-sizing: border-box;
+    display: inline-block;
+    /* 对flex子项使用inline-block可能需要调整 */
+    float: left;
+    margin: 0 10px;
+    /* 根据设计调整间距 */
+}
+
+
+/* 特定宽度的网格 */
+
+.container_12 .grid_1 {
+    width: 60px;
+}
+
+.container_12 .grid_2 {
+    width: 140px;
+}
+
+.container_12 .grid_3,
+.container_16 .grid_4 {
+    width: 220px;
+}
+
+.container_12 .grid_4 {
+    width: 300px;
+}
+
+
+/* 以此类推 */
+
+
+/* 后续宽度定义省略，按照类似的模式定义 */
+
+
+/* Alpha & Omega 类用于第一个和最后一个元素的边距调整 */
+
+.alpha {
+    margin-left: 0;
+}
+
+.omega {
+    margin-right: 0;
+}
+
+
+/* 同前方案，后续 .grid 定义略 */
+
+
+/* 为prefix和suffix添加padding */
+
+[class*="prefix_"],
+[class*="suffix_"] {
+    box-sizing: border-box;
+}
+
+.container_12 .prefix_3,
+.container_16 .prefix_4 {
+    padding-left: 240px;
+}
+
+
+/* 以此类推 */
+
+
+/* 后续padding定义省略，根据需要添加 */
+
+
+/* Modern clearfix solution */
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}

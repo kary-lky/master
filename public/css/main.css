@@ -1,0 +1,134 @@
+html {
+    font-size: 16px;
+    min-height: 100%;
+    margin-bottom: 1px;
+}
+
+body {
+    font-size: 90.5%;
+    font-family: Verdana, Arial, sans-serif;
+    color: #555555;
+    background: white repeat-x;
+}
+
+td.title {
+    background-color: #336699;
+    text-align: Center;
+    border-style: outset;
+    border-width: 1;
+    font-size: 12pt;
+    color: #FFFFFF;
+    font-weight: bold
+}
+
+td.field {
+    background-color: #FFEAC5;
+    border-style: inset;
+    border-width: 0;
+    font-size: 10pt;
+    color: #000000
+}
+
+td.value {
+    background-color: #FFFFFF;
+    border-width: 1;
+    font-size: 10pt;
+    color: #000000
+}
+
+td.tabletab {
+    background-color: #FFFFFF;
+    border-style: inset;
+    border-width: 0;
+    font-size: 10pt;
+    color: #CE7E00;
+    font-weight: bold
+}
+
+a.prev,
+a.next {
+    font-size: 10pt;
+    color: #CE7E00;
+    font-weight: bold;
+}
+
+#content {}
+
+#content h1 {
+    font-size: 2.4em;
+    font-weight: normal;
+    line-height: 32px;
+    margin: 0px 0 50px 0;
+}
+
+#content p {
+    font-size: 1.4em;
+    line-height: 22px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+
+/* relevant for the book image - start */
+
+#gallery {
+    position: relative;
+}
+
+#pictures {
+    position: relative;
+    width: 350;
+    height: auto;
+}
+
+#pictures img {
+    position: absolute;
+    width: 70%;
+    top: 15px;
+    right: 0;
+    left: 0;
+    box-shadow: 5px 5px 5px #888888;
+    transition: width 0.5s, height 0.5s;
+}
+
+#prev,
+#next {
+    margin-top: 520px;
+    text-align: left;
+    font-size: 1em;
+}
+
+
+/* relevant for the book image - end */
+
+
+/* located in demo.css and creates a little calendar icon
+ * instead of a text link for "Choose date"
+ */
+
+a.dp-choose-date {
+    float: left;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 5px 3px 0;
+    display: block;
+    text-indent: -2000px;
+    overflow: hidden;
+    background: url(calendar.png) no-repeat;
+}
+
+a.dp-choose-date.dp-disabled {
+    background-position: 0 -20px;
+    cursor: default;
+}
+
+
+/* makes the input field shorter once the date picker code
+ * has run (to allow space for the calendar icon
+ */
+
+input.dp-applied {
+    width: 140px;
+    float: left;
+}

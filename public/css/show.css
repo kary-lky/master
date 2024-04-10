@@ -1,0 +1,22 @@
+<style>
+  .uper {
+    margin-top: 40px;
+  }
+
+  body {
+    background: url('/images/bookstore.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  #prev a, #next a {
+    color: #0abaa5; /* 白色 */
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 2px 2px 4px #000000; /* 文字阴影，增加文字可读性 */
+  }
+  
+  #prev a:hover, #next a:hover {
+    color: #FFD700; /* 加入鼠标悬停效果，设置为金色 */
+  }
+</style>
+</style>

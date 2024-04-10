@@ -1,0 +1,78 @@
+<style>
+  .uper {
+    margin-top: 40px;
+  }
+  .tablesorter .zebra0 { background-color: #f9f9f9; } /* 第一种颜色 */
+  .tablesorter .zebra1 { background-color: #d0e9c6; } /* 第二种颜色 */
+  .tablesorter .zebra2 { background-color: #c4e3f3; } /* 第三种颜色 */
+   /* 表格底色 */
+   .table {
+    background-color: rgba(255, 255, 255, 0.8); /* 浅色背景，稍透明 */
+    color: #000; /* 黑色文字，适用于表格主体 */
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  /* 列头样式 */
+  .table thead th {
+    background-color: #007bff; /* 深蓝色背景 */
+    color: #ffffff; /* 白色文字 */
+    border-bottom: 2px solid #ffffff; /* 白色底边框以增加对比度 */
+  }
+  /* 行样式 */
+
+  .table tbody tr:nth-child(3n+1) {
+    background-color: rgba(0, 123, 255, 0.5); /* 深蓝色背景的浅色版本，用于斑马条纹 */
+  }
+  .table tbody tr:nth-child(3n+2) {
+    background-color: rgba(255, 255, 255, 0.5); /* 更浅的背景，用于斑马条纹 */
+  }
+  .table tbody tr:nth-child(3n+3) {
+    background-color: rgba(129, 216, 207, 0.5); /* 更浅的背景，用于斑马条纹 */
+  }
+
+  /* 排序图标颜色 */
+  th::after {
+    /* 调整颜色为亮色确保在深色背景下可见 */
+    color: #ffffff; /* 白色 */
+  }
+  th::after {
+    font-family: "Font Awesome 5 Free"; /* Font Awesome 字体 */
+    content: "\f0dc"; /* 未排序图标 */
+    color: #ccc; /* 默认颜色 */
+    font-weight: 900; /* 确保图标是粗体 */
+    padding-left: 5px; /* 与文本保持一定距离 */
+  }
+  /* 定义已排序列的图标 */
+
+  .headerSortUp::after {
+    content: "\f062"; /* 向上箭头表示升序 */
+    color: #000; /* 已排序图标的颜色 */
+  }
+  .headerSortDown::after {
+    content: "\f063"; /* 向下箭头表示降序 */
+    color: #000; /* 已排序图标的颜色 */
+  }
+  #imageModal {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0, 0, 0, 0.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  #closeBtn {
+    position:absolute;
+    top:10px;
+    right:10px;
+    padding:5px;
+    background-color:red;
+    color:white;
+    border:none;
+  }
+  .cover-img {
+  cursor: pointer; /* 让鼠标悬停时变为手掌形状 */
+}
+</style>

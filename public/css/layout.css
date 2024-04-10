@@ -1,0 +1,25 @@
+<style>
+.nav-container {
+    display: flex; /* 启用Flexbox布局 */
+    justify-content: center; /* 水平居中对齐所有项目 */
+    align-items: center; /* 垂直居中 */
+    flex-wrap: wrap; /* 允许项目换行，适应不同屏幕大小 */
+}
+    .nav-item {
+        display: inline-block; /* 确保横向排列 */
+        text-align: center; /* 图标和文本居中对齐 */
+        align-items: center; /* 垂直居中对齐图标和文本 */
+        margin: 0 50px; /* 两侧外间距 */
+        margin-top: 20px;
+        align-self: flex-start; /* 调整此项以改变nav-item的垂直对齐而不影响logo */
+    }
+
+    .nav-text {
+        color: #FFF; /* 白色字体适应深色背景 */
+        font-weight: bold;
+        text-shadow: 1px 1px 4px #000; /* 为文字添加阴影以提高对比度，增加可读性 */
+        font-family: 'Nunito', sans-serif; /* 保持整站字体风格统一 */
+        margin-top: 5px; /* 适当增加与图标的间距 */
+    }
+
+</style>

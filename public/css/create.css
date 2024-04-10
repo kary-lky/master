@@ -1,0 +1,32 @@
+<style>/* 修改整个datepicker的背景和边框 */
+.ui-datepicker {
+    background: #fff;
+    border: 1px solid #aaa;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* 修改datepicker的标题栏颜色 */
+.ui-datepicker .ui-datepicker-header {
+    background: #f7f7f7;
+    color: #444;
+}
+
+/* 修改日期的默认和悬浮颜色 */
+.ui-datepicker .ui-state-default {
+    background: #e9e9e9;
+}
+
+.ui-datepicker .ui-state-default:hover {
+    background: #dedede;
+}
+
+/* 修改今日日期的背景颜色 */
+.ui-datepicker .ui-state-highlight {
+    background: #aaddff;
+}
+
+/* 修改选中日期的背景颜色 */
+.ui-datepicker .ui-state-active {
+    background: #ffdd99;
+}
+</style>

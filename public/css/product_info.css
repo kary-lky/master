@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+/* 边框圆角 */
+
+.productInfo_currency_select,
+.productInfo_currency_select_eng {
+    border-radius: 5px;
+    /* 添加圆角效果 */
+}
+
+
+/* 阴影效果 */
+
+div#extraInfo_Area,
+div#currency_notice {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.177);
+    /* 添加轻微的阴影 */
+}
+
+
+/* 渐变背景 */
+
+a:hover.extraInfo_link {
+    background-image: linear-gradient(to right, #ffcc00, #ffdd55);
+    /* 现代化的背景渐变 */
+}
+
+
+/* 过渡效果 */
+
+a:link.extraInfo_link,
+a:visited.extraInfo_link,
+a:hover.extraInfo_link,
+a:active.extraInfo_link {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    /* 平滑背景和颜色过渡 */
+}
+
+
+/* 美化表格 */
+
+table#productInfo_table,
+table#extraInfo_table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    /* 调整行间距 */
+}
+
+table#productInfo_table td,
+table#extraInfo_table td {
+    border-bottom: 1px solid #eee;
+    /* 每行下方添加细线，增加区分度 */
+}
+
+
+/* 字体阴影 */
+
+span#newPrice_label {
+    text-shadow: 1px 1px 2px rgb(246, 45, 10);
+    /* 新价格标签添加文字阴影，增加立体感 */
+}
