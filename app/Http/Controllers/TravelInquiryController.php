@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TravelInquiry;
 use App\Models\Tag;
+
 class TravelInquiryController extends Controller
 {
     public function travel()
@@ -15,7 +16,7 @@ class TravelInquiryController extends Controller
     {
         $searchTerm = $request->input('searchTerm');
         $searchOption = $request->input('searchOption');
-    
+
         // Perform the search query based on the search term and option
         if ($searchOption === 'destination') {
             $inquiries = TravelInquiry::where('destination', 'like', '%' . $searchTerm . '%')->get();
@@ -24,36 +25,36 @@ class TravelInquiryController extends Controller
         } else {
             $inquiries = collect(); // Empty collection if the search option is not recognized
         }
-    
+
         $totalRecords = $inquiries->count();
-    
+
         return view('search_results', compact('inquiries', 'totalRecords'));
     }
-  
+
 
     public function store(Request $request)
     {
-            $request->validate([
-                'title' => 'required',
-                'tags' => 'required',
-                'destination' => 'required',
-                'start_date' => 'required|date',
-                'end_date' => 'required|date',
-            ]);
-        
-            // Serialize the array of tags into a string
-            $tags = implode(',', $request->tags);
-        
-            TravelInquiry::create([
-                'title' => $request->title,
-                'tags' => $tags, // Assign the serialized tags string
-                'destination' => $request->destination,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
-            ]);
-        
-            // Rest of your code...
-        
+        $request->validate([
+            'title' => 'required',
+            'tags' => 'required',
+            'destination' => 'required',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ]);
+
+        // Serialize the array of tags into a string
+        $tags = implode(',', $request->tags);
+
+        TravelInquiry::create([
+            'title' => $request->title,
+            'tags' => $tags, // Assign the serialized tags string
+            'destination' => $request->destination,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
+        // Rest of your code...
+
         return redirect()->back()->with('success', 'Travel inquiry submitted successfully!');
     }
 
@@ -98,9 +99,7 @@ class TravelInquiryController extends Controller
     public function destroy($id)
     {
         TravelInquiry::destroy($id);
-    
+
         return redirect()->route('travelInquiry.index')->with('success', 'Travel inquiry deleted successfully!');
     }
 }
-
-
