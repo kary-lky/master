@@ -10,11 +10,11 @@ class CreateTravelInquiriesTable extends Migration
     {
         Schema::create('travel_inquiries', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
-            $table->string('phone');
-            $table->string('email');
+            $table->string('title');
             $table->string('destination');
-            $table->date('travel_date');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('tags');
             $table->timestamps();
         });
     }

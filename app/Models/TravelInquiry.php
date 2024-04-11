@@ -4,16 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 class TravelInquiry extends Model
 {
     use HasFactory;
 	
     protected $fillable = [
-        'username',
-        'phone',
-        'email',
+        'title',
+        'tags',
         'destination',
-        'travel_date',
+        'start_date',
+        'end_date',
     ];
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

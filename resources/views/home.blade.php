@@ -7,7 +7,7 @@
             <!-- Move the Return to Home button to the top and style it -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0">Dashboard</h2>
-                <a href="/books" class="btn btn-outline-primary">{{ __('Return to Home') }}</a>
+                <a href="/travelInquiry/travel" class="btn btn-outline-primary">{{ __('Return to Home') }}</a>
             </div>
             <div class="card">
                 <div class="card-header">{{ __('Dashboard Overview') }}</div>

@@ -15,3 +15,9 @@ Route::middleware(['auth'])->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('travelInquiry', [TravelInquiryController::class, 'index'])->name('travelInquiry.index');
+Route::get('travelInquiry/{id}/edit', [TravelInquiryController::class, 'edit'])->name('travelInquiry.edit');
+Route::get('/travel/search/results', [TravelInquiryController::class, 'searchResults'])->name('travelInquiry.searchResults');
+Route::post('travelInquiry', [TravelInquiryController::class, 'store'])->name('travelInquiry.store');
+Route::patch('travelInquiry/{id}', [TravelInquiryController::class, 'update'])->name('travelInquiry.update');
+Route::delete('/travelInquiry/{id}', [TravelInquiryController::class, 'destroy'])->name('travelInquiry.destroy');
