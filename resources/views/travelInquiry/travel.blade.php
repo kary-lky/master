@@ -3,9 +3,9 @@
 @section('content')
 <link href="{{ asset('css/create.css') }}" rel="stylesheet">
 @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
 @endif
 <div class="container my-4">
     <div class="row">
@@ -17,22 +17,22 @@
                 <div class="card-body">
                     <form method="GET" action="{{ route('travelInquiry.searchResults') }}">
                         <div class="form-group">
-                                <label for="searchTerm">Search Term</label>
-                                <input type="text" class="form-control" name="searchTerm" id="searchTerm" required>
-                                @error('searchTerm')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
+                            <label for="searchTerm">Search Term</label>
+                            <input type="text" class="form-control" name="searchTerm" id="searchTerm" required>
+                            @error('searchTerm')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <div class="form-group">
-                                <label for="searchOption">Search Option</label>
-                                <select class="form-control" name="searchOption" id="searchOption">
-                                    <option value="destination">Destination</option>
-                                    <option value="tags">Tags</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="searchOption">Search Option</label>
+                            <select class="form-control" name="searchOption" id="searchOption">
+                                <option value="destination">Destination</option>
+                                <option value="tags">Tags</option>
+                            </select>
+                        </div>
 
-                            <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
             </div>
@@ -43,12 +43,12 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('travelInquiry.store') }}">
-                        @csrf
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" name="title" id="title" required>
+                            <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" required>
                             @error('title')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -57,9 +57,9 @@
                             <select class="form-control" name="tags[]" id="tags" multiple required>
                                 <!-- Options for existing tags (if any) -->
                                 @if(is_array(old('tags')))
-                                    @foreach(old('tags') as $tag)
-                                        <option value="{{ $tag }}" selected>{{ $tag }}</option>
-                                    @endforeach
+                                @foreach(old('tags') as $tag)
+                                <option value="{{ $tag }}" selected>{{ $tag }}</option>
+                                @endforeach
                                 @endif
                                 <!-- Custom tag options -->
                                 <option value="Beach">Beach</option>
@@ -95,31 +95,31 @@
                                 <option value="Business">Business</option>
                             </select>
                             @error('tags')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="destination">Destination</label>
-                            <input type="text" class="form-control" name="destination" id="destination" required>
+                            <input type="text" class="form-control" name="destination" id="destination" value="{{ old('destination') }}" required>
                             @error('destination')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="start_date">Start Date</label>
-                            <input type="date" class="form-control" name="start_date" id="start_date" required>
+                            <input type="date" class="form-control" name="start_date" id="start_date" value="{{ old('start_date') ? old('start_date') : '' }}" required>
                             @error('start_date')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="end_date">End Date</label>
-                            <input type="date" class="form-control" name="end_date" id="end_date" required>
+                            <input type="date" class="form-control" name="end_date" id="end_date" value="{{ old('end_date') ? old('end_date') : '' }}" required>
                             @error('end_date')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -128,6 +128,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        <h5>Weather Info</h5>
+        <!-- <table id="weatherTable"></table> -->
+        <div id="weatherInfo"></div>
     </div>
 </div>
 
@@ -143,7 +148,7 @@
         $('#tags').select2({
             tags: true, // Allow custom tags
             tokenSeparators: [',', ' '], // Allow comma and space as tag separators
-            createTag: function (params) {
+            createTag: function(params) {
                 // Capitalize the first letter of the custom tag
                 var term = $.trim(params.term);
                 if (term === '') {
@@ -192,7 +197,53 @@
                 }
             }
         });
+
+        $("#destination").on("click change", function(e) {
+            var searchKey = $("#destination").val();
+            if (searchKey != "") {
+                getWeather("", "", searchKey);
+            }
+        });
     });
+
+    function getWeather(lat, lon, destination) {
+        $.ajax({
+            type: "POST",
+            url: "https://api.openweathermap.org/data/2.5/weather?q=" + destination +
+                "&appid=47094a0b172ed978ff86a5b68525ead4&units=metric",
+            dataType: "json",
+            success: function(result, status, xhr) {
+                console.log(result);
+                $("#weatherInfo").html("City: " + result.name + "<br/>" + "Temperature:" + result.main.temp);
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    function CreateWeatherJson(json) {
+        var newJson = "";
+        for (i = 0; i < json.list.length; i++) {
+            cityId = json.list[i].id;
+            cityName = json.list[i].name;
+            temp = json.list[i].main.temp
+            pressure = json.list[i].main.pressure
+            humidity = json.list[i].main.humidity
+            tempmin = json.list[i].main.temp_min
+            tempmax = json.list[i].main.temp_max
+            newJson = newJson + "{";
+            newJson = newJson + "\"cityId\"" + ": " + cityId + ","
+            newJson = newJson + "\"cityName\"" + ": " + "\"" + cityName + "\"" + ","
+            newJson = newJson + "\"temp\"" + ": " + temp + ","
+            newJson = newJson + "\"pressure\"" + ": " + pressure + ","
+            newJson = newJson + "\"humidity\"" + ": " + humidity + ","
+            newJson = newJson + "\"tempMin\"" + ": " + tempmin + ","
+            newJson = newJson + "\"tempMax\"" + ": " + tempmax
+            newJson = newJson + "},";
+        }
+        return "[" + newJson.slice(0, newJson.length - 1) + "]"
+    }
 </script>
 <style>
     .highlight-range {

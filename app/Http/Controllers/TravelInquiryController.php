@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TravelInquiry;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Facades\Log;
 
 class TravelInquiryController extends Controller
 {
@@ -34,14 +37,27 @@ class TravelInquiryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|min:3|max:255',
             'tags' => 'required',
-            'destination' => 'required',
+            'destination' => 'required|alpha',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
+        ], [
+            'title.required' => 'The title field is required.',
+            'title.min' => 'The title must be at least :min characters.',
+            'title.max' => 'The title may not be greater than :max characters.',
+            'tags.required' => 'The tags field is required.',
+            'destination.required' => 'The destination field is required.',
+            'destination.alpha' => 'The destination must only contain alphabetic characters.',
+            'start_date.required' => 'The start date field is required.',
+            'start_date.date' => 'The start date must be a valid date.',
+            'end_date.required' => 'The end date field is required.',
+            'end_date.date' => 'The end date must be a valid date.',
         ]);
-
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         // Serialize the array of tags into a string
         $tags = implode(',', $request->tags);
 
@@ -94,6 +110,66 @@ class TravelInquiryController extends Controller
         $travelInquiry->save();
 
         return redirect()->route('travelInquiry.index')->with('success', 'Travel inquiry updated successfully!');
+    }
+
+    public function searchMap(Request $request)
+    {
+        //$geoCode_HKG = $this->geocode("Hong Kong");
+        if ($request->ajax()) {
+            $param = $request->get('query');
+            $startPoint = $request->get('startPoint');
+            $geoCode_HKG = $this->geocode($startPoint);
+            $geoCode_dest = $this->geocode($param);
+            $response = [
+                'query' => $param,
+                'geocode' => $geoCode_dest,
+                'hongKongGeocode' => $geoCode_HKG,
+            ];
+
+            return response()->json($response);
+        }
+    }
+
+    //Query the latitude, longitude of an address from Google Maps Geocoding API
+    public function geocode($address)
+    {
+
+        // url encode the address
+        $address = urlencode($address);
+
+        // apply your google map api key here
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$address}&key=AIzaSyDJQqiwokQWGGBEvgP_BMD8_w9TpeC5tjc";
+
+        // get the json response
+        $resp_json = file_get_contents($url);
+
+        // decode the json
+        $resp = json_decode($resp_json, true);
+
+        // response status will be 'OK', if able to geocode given address 
+        if ($resp['status'] == 'OK') {
+
+            // get the important data
+            $lati = isset($resp['results'][0]['geometry']['location']['lat']) ? $resp['results'][0]['geometry']['location']['lat'] : "";
+            $longi = isset($resp['results'][0]['geometry']['location']['lng']) ? $resp['results'][0]['geometry']['location']['lng'] : "";
+
+            // verify if data is complete
+            if ($lati && $longi) {
+
+                // put the data in the array
+                $data_arr = array();
+
+                array_push(
+                    $data_arr,
+                    $lati,
+                    $longi
+                );
+
+                return $data_arr;
+            } else {
+                return false;
+            }
+        }
     }
 
     public function destroy($id)

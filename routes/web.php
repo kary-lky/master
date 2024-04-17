@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TravelInquiryController;
+use App\Http\Controllers\Web\SearchFlightController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('travelInquiry/travel', [TravelInquiryController::class, 'travel'])->name('travelInquiry.travel');
@@ -21,3 +22,6 @@ Route::get('/travel/search/results', [TravelInquiryController::class, 'searchRes
 Route::post('travelInquiry', [TravelInquiryController::class, 'store'])->name('travelInquiry.store');
 Route::patch('travelInquiry/{id}', [TravelInquiryController::class, 'update'])->name('travelInquiry.update');
 Route::delete('/travelInquiry/{id}', [TravelInquiryController::class, 'destroy'])->name('travelInquiry.destroy');
+Route::get('/searchMap', [App\Http\Controllers\TravelInquiryController::class, 'searchMap']);
+
+Route::get('/', SearchFlightController::class);
